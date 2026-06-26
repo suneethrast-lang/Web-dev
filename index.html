@@ -1,0 +1,706 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Bauphiloné | Luxury Hotel Booking</title>
+  <meta name="description" content="Book luxury hotel rooms, suites, and premium stays at The Bauphiloné." />
+  <meta name="keywords" content="luxury hotel, hotel booking, suites, premium stay, The Bauphiloné" />
+  <meta name="author" content="The Bauphiloné" />
+  <meta property="og:title" content="The Bauphiloné | Luxury Hotel Booking" />
+  <meta property="og:description" content="Book luxury hotel rooms, suites, and premium stays at The Bauphiloné." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ========== NAVIGATION ========== -->
+  <header id="navbar" class="navbar" role="banner">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo" aria-label="The Bauphiloné Home">
+        <span class="logo-icon">âœ¦</span>
+        <span class="logo-text">
+          <span class="logo-main">The Bauphiloné</span>
+          <span class="logo-sub">Hotels &amp; Resorts</span>
+        </span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="rooms.html" class="nav-link">Rooms &amp; Suites</a></li>
+          <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="loginBtn" class="btn btn-ghost" aria-label="Login to your account">Login</button>
+        <a href="#booking" class="btn btn-gold" id="bookNowBtn">Book Now</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section id="home" class="hero" aria-label="Hero Section">
+      <div class="hero-bg">
+        <img src="images/hotel_hero.png" alt="Luxurious The Bauphiloné exterior at twilight with grand architecture and golden lighting" class="hero-img" />
+        <div class="hero-overlay"></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-star">â˜…â˜…â˜…â˜…â˜…</span>
+          <span>Five Star Luxury</span>
+        </div>
+        <h1 class="hero-title">Experience Luxury<br /><em>Beyond Expectations</em></h1>
+        <p class="hero-subtitle">Discover world-class hospitality, elegant rooms, and unforgettable stays at the most iconic addresses in the world.</p>
+        <div class="hero-buttons">
+          <a href="#rooms" class="btn btn-gold btn-lg" id="exploreRoomsBtn">
+            <i class="fas fa-bed" aria-hidden="true"></i>
+            Explore Rooms
+          </a>
+          <a href="#booking" class="btn btn-outline-white btn-lg" id="bookStayBtn">
+            <i class="fas fa-calendar-check" aria-hidden="true"></i>
+            Book Your Stay
+          </a>
+        </div>
+      </div>
+
+      <!-- Floating Booking Card -->
+      <div class="booking-card glassmorphism" id="booking" role="form" aria-label="Quick Booking Form">
+        <div class="booking-card-header">
+          <h2 class="booking-title">Reserve Your Stay</h2>
+          <p class="booking-sub">Best rates guaranteed</p>
+        </div>
+        <form class="booking-form" id="bookingForm" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="destination" class="form-label">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                Destination
+              </label>
+              <select id="destination" name="destination" class="form-input" aria-required="true">
+                <option value="">Select Destination</option>
+                <option value="mumbai">Mumbai, India</option>
+                <option value="delhi">New Delhi, India</option>
+                <option value="dubai">Dubai, UAE</option>
+                <option value="paris">Paris, France</option>
+                <option value="maldives">Maldives</option>
+                <option value="singapore">Singapore</option>
+              </select>
+              <span class="form-error" id="destinationError" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="checkin" class="form-label">
+                <i class="fas fa-calendar" aria-hidden="true"></i>
+                Check-In Date
+              </label>
+              <input type="date" id="checkin" name="checkin" class="form-input" aria-required="true" />
+              <span class="form-error" id="checkinError" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="checkout" class="form-label">
+                <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                Check-Out Date
+              </label>
+              <input type="date" id="checkout" name="checkout" class="form-input" aria-required="true" />
+              <span class="form-error" id="checkoutError" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="guests" class="form-label">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                Guests
+              </label>
+              <select id="guests" name="guests" class="form-input" aria-required="true">
+                <option value="">Select Guests</option>
+                <option value="1">1 Guest</option>
+                <option value="2">2 Guests</option>
+                <option value="3">3 Guests</option>
+                <option value="4">4 Guests</option>
+                <option value="5">5+ Guests</option>
+              </select>
+              <span class="form-error" id="guestsError" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="roomType" class="form-label">
+                <i class="fas fa-door-open" aria-hidden="true"></i>
+                Room Type
+              </label>
+              <select id="roomType" name="roomType" class="form-input" aria-required="true">
+                <option value="">Select Room Type</option>
+                <option value="deluxe">Deluxe Room</option>
+                <option value="executive">Executive Suite</option>
+                <option value="presidential">Presidential Suite</option>
+                <option value="penthouse">Penthouse</option>
+              </select>
+              <span class="form-error" id="roomTypeError" role="alert"></span>
+            </div>
+
+            <div class="form-group form-btn-group">
+              <button type="submit" class="btn btn-gold btn-full" id="checkAvailabilityBtn">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                Check Availability
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="booking-success" id="bookingSuccess" role="status" aria-live="polite" style="display:none;">
+          <i class="fas fa-check-circle"></i>
+          <p>Your request has been received! We'll contact you shortly.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== WELCOME SECTION ========== -->
+    <section id="about" class="welcome-section section-pad" aria-labelledby="welcomeHeading">
+      <div class="container">
+        <div class="welcome-grid">
+          <div class="welcome-image-col">
+            <div class="welcome-img-wrapper">
+              <img src="images/hotel_lobby.png" alt="Grand luxurious hotel lobby with crystal chandeliers, marble floors, and elegant gold accents at The Bauphiloné" class="welcome-img" loading="lazy" />
+              <div class="img-badge">
+                <span class="badge-num">25+</span>
+                <span class="badge-label">Years of Excellence</span>
+              </div>
+            </div>
+          </div>
+          <div class="welcome-content-col">
+            <div class="section-eyebrow">About The Hotel</div>
+            <h2 id="welcomeHeading" class="section-title">Welcome to<br /><em>The Bauphiloné</em></h2>
+            <div class="gold-divider"></div>
+            <p class="welcome-text">
+              Nestled at the world's most coveted addresses, The Bauphiloné redefines the art of luxury hospitality. For over two decades, we have curated extraordinary experiences that blend timeless elegance with modern sophistication.
+            </p>
+            <p class="welcome-text">
+              From our award-winning fine dining restaurants helmed by Michelin-starred chefs, to our rejuvenating spa sanctuaries and impeccably appointed suites â€” every moment at The Bauphiloné is crafted to exceed your expectations.
+            </p>
+            <ul class="welcome-features" aria-label="Hotel highlights">
+              <li><i class="fas fa-check-circle" aria-hidden="true"></i> Michelin-Starred Fine Dining</li>
+              <li><i class="fas fa-check-circle" aria-hidden="true"></i> World-Class Spa &amp; Wellness</li>
+              <li><i class="fas fa-check-circle" aria-hidden="true"></i> Bespoke Concierge Services</li>
+              <li><i class="fas fa-check-circle" aria-hidden="true"></i> Exclusive Member Benefits</li>
+            </ul>
+            <a href="#rooms" class="btn btn-gold" id="learnMoreBtn">Learn More <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ROOMS SECTION ========== -->
+    <section id="rooms" class="rooms-section section-pad bg-beige" aria-labelledby="roomsHeading">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Premium Accommodations</div>
+          <h2 id="roomsHeading" class="section-title">Our Luxury <em>Accommodations</em></h2>
+          <div class="gold-divider center"></div>
+          <p class="section-desc">Each room and suite is a sanctuary of comfort, meticulously designed with the finest materials and amenities.</p>
+        </div>
+
+        <div class="rooms-grid">
+          <!-- Deluxe Room -->
+          <article class="room-card" aria-labelledby="room1Title">
+            <div class="room-img-wrapper">
+              <img src="images/room_deluxe.png" alt="Elegant deluxe hotel room with king-size bed, floor-to-ceiling windows, and gold accents at The Bauphiloné" class="room-img" loading="lazy" />
+              <div class="room-tag">Best Seller</div>
+            </div>
+            <div class="room-body">
+              <h3 id="room1Title" class="room-name">Deluxe Room</h3>
+              <p class="room-desc">Indulge in sophisticated comfort with panoramic city views, premium bedding, and curated in-room amenities designed for the discerning traveler.</p>
+              <div class="room-amenities" aria-label="Room amenities">
+                <span class="amenity-pill" title="Free WiFi"><i class="fas fa-wifi" aria-hidden="true"></i> WiFi</span>
+                <span class="amenity-pill" title="Air Conditioning"><i class="fas fa-snowflake" aria-hidden="true"></i> AC</span>
+                <span class="amenity-pill" title="Smart TV"><i class="fas fa-tv" aria-hidden="true"></i> Smart TV</span>
+                <span class="amenity-pill" title="Breakfast Included"><i class="fas fa-coffee" aria-hidden="true"></i> Breakfast</span>
+              </div>
+              <div class="room-footer">
+                <div class="room-price">
+                  <span class="price-from">from</span>
+                  <span class="price-amount">$299</span>
+                  <span class="price-night">/ night</span>
+                </div>
+                <button class="btn btn-gold-sm" id="viewDeluxeBtn" aria-label="View details for Deluxe Room">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Executive Suite -->
+          <article class="room-card room-card-featured" aria-labelledby="room2Title">
+            <div class="room-img-wrapper">
+              <img src="images/room_executive.png" alt="Spacious executive suite with panoramic views, elegant living area, and premium decor at The Bauphiloné" class="room-img" loading="lazy" />
+              <div class="room-tag tag-gold">Most Popular</div>
+            </div>
+            <div class="room-body">
+              <h3 id="room2Title" class="room-name">Executive Suite</h3>
+              <p class="room-desc">A sanctuary of luxury featuring a separate living room, private dining area, butler service, and breathtaking skyline vistas from every window.</p>
+              <div class="room-amenities" aria-label="Suite amenities">
+                <span class="amenity-pill" title="Free WiFi"><i class="fas fa-wifi" aria-hidden="true"></i> WiFi</span>
+                <span class="amenity-pill" title="Air Conditioning"><i class="fas fa-snowflake" aria-hidden="true"></i> AC</span>
+                <span class="amenity-pill" title="Smart TV"><i class="fas fa-tv" aria-hidden="true"></i> Smart TV</span>
+                <span class="amenity-pill" title="Breakfast Included"><i class="fas fa-coffee" aria-hidden="true"></i> Breakfast</span>
+              </div>
+              <div class="room-footer">
+                <div class="room-price">
+                  <span class="price-from">from</span>
+                  <span class="price-amount">$599</span>
+                  <span class="price-night">/ night</span>
+                </div>
+                <button class="btn btn-gold-sm" id="viewExecutiveBtn" aria-label="View details for Executive Suite">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Presidential Suite -->
+          <article class="room-card" aria-labelledby="room3Title">
+            <div class="room-img-wrapper">
+              <img src="images/room_presidential.png" alt="Grand presidential suite with ocean views, crystal chandelier, private terrace, and marble floors at The Bauphiloné" class="room-img" loading="lazy" />
+              <div class="room-tag tag-premium">Exclusive</div>
+            </div>
+            <div class="room-body">
+              <h3 id="room3Title" class="room-name">Presidential Suite</h3>
+              <p class="room-desc">The pinnacle of luxury living â€” your own private residence featuring a grand piano, dedicated butler, private terrace, and world-class furnishings.</p>
+              <div class="room-amenities" aria-label="Presidential suite amenities">
+                <span class="amenity-pill" title="Free WiFi"><i class="fas fa-wifi" aria-hidden="true"></i> WiFi</span>
+                <span class="amenity-pill" title="Air Conditioning"><i class="fas fa-snowflake" aria-hidden="true"></i> AC</span>
+                <span class="amenity-pill" title="Smart TV"><i class="fas fa-tv" aria-hidden="true"></i> Smart TV</span>
+                <span class="amenity-pill" title="Breakfast Included"><i class="fas fa-coffee" aria-hidden="true"></i> Breakfast</span>
+              </div>
+              <div class="room-footer">
+                <div class="room-price">
+                  <span class="price-from">from</span>
+                  <span class="price-amount">$1,299</span>
+                  <span class="price-night">/ night</span>
+                </div>
+                <button class="btn btn-gold-sm" id="viewPresidentialBtn" aria-label="View details for Presidential Suite">View Details</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FACILITIES SECTION ========== -->
+    <section id="facilities" class="facilities-section section-pad" aria-labelledby="facilitiesHeading">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">World-Class Amenities</div>
+          <h2 id="facilitiesHeading" class="section-title">Hotel <em>Facilities</em></h2>
+          <div class="gold-divider center"></div>
+        </div>
+
+        <div class="facilities-grid">
+          <div class="facility-card" id="facilityPool">
+            <div class="facility-icon-wrap">
+              <i class="fas fa-swimming-pool" aria-hidden="true"></i>
+            </div>
+            <h3 class="facility-name">Infinity Pool</h3>
+            <p class="facility-desc">Swim above the clouds in our stunning rooftop infinity pool with breathtaking panoramic views.</p>
+          </div>
+          <div class="facility-card" id="facilityDining">
+            <div class="facility-icon-wrap">
+              <i class="fas fa-utensils" aria-hidden="true"></i>
+            </div>
+            <h3 class="facility-name">Fine Dining Restaurant</h3>
+            <p class="facility-desc">Savor exquisite culinary creations by our Michelin-starred chefs in an elegant setting.</p>
+          </div>
+          <div class="facility-card" id="facilitySpa">
+            <div class="facility-icon-wrap">
+              <i class="fas fa-spa" aria-hidden="true"></i>
+            </div>
+            <h3 class="facility-name">Spa &amp; Wellness</h3>
+            <p class="facility-desc">Rejuvenate your body and soul with our bespoke treatments and state-of-the-art wellness facilities.</p>
+          </div>
+          <div class="facility-card" id="facilityGym">
+            <div class="facility-icon-wrap">
+              <i class="fas fa-dumbbell" aria-hidden="true"></i>
+            </div>
+            <h3 class="facility-name">Fitness Center</h3>
+            <p class="facility-desc">Stay active in our fully equipped 24/7 fitness center with personal trainers available on request.</p>
+          </div>
+          <div class="facility-card" id="facilityConference">
+            <div class="facility-icon-wrap">
+              <i class="fas fa-briefcase" aria-hidden="true"></i>
+            </div>
+            <h3 class="facility-name">Conference Hall</h3>
+            <p class="facility-desc">Host world-class events in our sophisticated conference and banquet facilities accommodating 500+ guests.</p>
+          </div>
+          <div class="facility-card" id="facilityTransfer">
+            <div class="facility-icon-wrap">
+              <i class="fas fa-car" aria-hidden="true"></i>
+            </div>
+            <h3 class="facility-name">Airport Transfer</h3>
+            <p class="facility-desc">Arrive in style with our complimentary luxury chauffeur-driven airport transfer service.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== WHY CHOOSE US SECTION ========== -->
+    <section id="why-us" class="why-section section-pad bg-beige" aria-labelledby="whyHeading">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Our Commitment</div>
+          <h2 id="whyHeading" class="section-title">Why Choose <em>The Bauphiloné</em></h2>
+          <div class="gold-divider center"></div>
+        </div>
+
+        <div class="why-grid">
+          <div class="why-card" id="whyPrice">
+            <div class="why-icon-circle">
+              <i class="fas fa-tag" aria-hidden="true"></i>
+            </div>
+            <h3 class="why-title">Best Price Guarantee</h3>
+            <p class="why-desc">Book directly with us and we guarantee the lowest rates. Found it cheaper? We'll match it, no questions asked.</p>
+          </div>
+          <div class="why-card" id="whySupport">
+            <div class="why-icon-circle">
+              <i class="fas fa-headset" aria-hidden="true"></i>
+            </div>
+            <h3 class="why-title">24/7 Customer Support</h3>
+            <p class="why-desc">Our dedicated concierge team is available around the clock to assist with every aspect of your stay.</p>
+          </div>
+          <div class="why-card" id="whySecurity">
+            <div class="why-icon-circle">
+              <i class="fas fa-shield-alt" aria-hidden="true"></i>
+            </div>
+            <h3 class="why-title">Secure Online Booking</h3>
+            <p class="why-desc">Your privacy and security are paramount. All transactions are protected by bank-level 256-bit SSL encryption.</p>
+          </div>
+          <div class="why-card" id="whyExperience">
+            <div class="why-icon-circle">
+              <i class="fas fa-star" aria-hidden="true"></i>
+            </div>
+            <h3 class="why-title">Luxury Guest Experience</h3>
+            <p class="why-desc">From personalized welcome amenities to bespoke experiences, we anticipate your every need before you ask.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section id="testimonials" class="testimonials-section section-pad" aria-labelledby="testimonialsHeading">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Guest Stories</div>
+          <h2 id="testimonialsHeading" class="section-title">What Our Guests <em>Say</em></h2>
+          <div class="gold-divider center"></div>
+        </div>
+
+        <div class="testimonials-slider" role="region" aria-label="Guest testimonials">
+          <div class="testimonials-track" id="testimonialsTrack">
+            <!-- Testimonial 1 -->
+            <article class="testimonial-card" aria-label="Testimonial by Priya Sharma">
+              <div class="testimonial-quote-icon" aria-hidden="true">"</div>
+              <div class="stars" role="img" aria-label="5 out of 5 stars">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+              </div>
+              <p class="testimonial-text">"An absolutely transcendent experience. The Presidential Suite was beyond anything I could have imagined â€” the butler service, the views, the food. The Bauphiloné has redefined luxury for me forever."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar" aria-hidden="true">PS</div>
+                <div class="author-info">
+                  <strong class="author-name">Priya Sharma</strong>
+                  <span class="author-role">CEO, Luminos Ventures Â· Mumbai</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Testimonial 2 -->
+            <article class="testimonial-card" aria-label="Testimonial by James Whitmore">
+              <div class="testimonial-quote-icon" aria-hidden="true">"</div>
+              <div class="stars" role="img" aria-label="5 out of 5 stars">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+              </div>
+              <p class="testimonial-text">"We celebrated our anniversary at The Bauphiloné and every single detail was perfect. The staff remembered our preferences, arranged a surprise rooftop dinner, and made us feel like royalty. Simply magnificent."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar" aria-hidden="true">JW</div>
+                <div class="author-info">
+                  <strong class="author-name">James Whitmore</strong>
+                  <span class="author-role">Travel Journalist Â· London</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Testimonial 3 -->
+            <article class="testimonial-card" aria-label="Testimonial by Aiko Tanaka">
+              <div class="testimonial-quote-icon" aria-hidden="true">"</div>
+              <div class="stars" role="img" aria-label="5 out of 5 stars">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+              </div>
+              <p class="testimonial-text">"The spa treatments were absolutely divine, and the infinity pool views at sunset were a once-in-a-lifetime experience. I've stayed at luxury hotels worldwide â€” The Bauphiloné stands in a class entirely its own."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar" aria-hidden="true">AT</div>
+                <div class="author-info">
+                  <strong class="author-name">Aiko Tanaka</strong>
+                  <span class="author-role">Luxury Lifestyle Blogger Â· Tokyo</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="slider-controls" role="group" aria-label="Testimonial navigation">
+            <button class="slider-btn" id="prevTestimonial" aria-label="Previous testimonial">
+              <i class="fas fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <div class="slider-dots" id="sliderDots" role="tablist">
+              <button class="dot active" data-index="0" role="tab" aria-selected="true" aria-label="Testimonial 1"></button>
+              <button class="dot" data-index="1" role="tab" aria-selected="false" aria-label="Testimonial 2"></button>
+              <button class="dot" data-index="2" role="tab" aria-selected="false" aria-label="Testimonial 3"></button>
+            </div>
+            <button class="slider-btn" id="nextTestimonial" aria-label="Next testimonial">
+              <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== GALLERY SECTION ========== -->
+    <section id="gallery" class="gallery-section section-pad bg-beige" aria-labelledby="galleryHeading">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Our Spaces</div>
+          <h2 id="galleryHeading" class="section-title">A Visual <em>Journey</em></h2>
+          <div class="gold-divider center"></div>
+        </div>
+
+        <div class="gallery-masonry" role="list" aria-label="Hotel gallery images">
+          <div class="gallery-item gallery-tall" role="listitem">
+            <img src="images/hotel_hero.png" alt="Grand The Bauphiloné Hotel exterior showcasing magnificent colonial architecture lit in gold at twilight" loading="lazy" />
+            <div class="gallery-overlay">
+              <span class="gallery-label">Hotel Exterior</span>
+            </div>
+          </div>
+          <div class="gallery-item" role="listitem">
+            <img src="images/hotel_lobby.png" alt="Opulent hotel lobby featuring crystal chandeliers, marble floors and gold accents at The Bauphiloné" loading="lazy" />
+            <div class="gallery-overlay">
+              <span class="gallery-label">Grand Lobby</span>
+            </div>
+          </div>
+          <div class="gallery-item" role="listitem">
+            <img src="images/room_deluxe.png" alt="Luxurious deluxe room with panoramic city views and premium gold and navy decor" loading="lazy" />
+            <div class="gallery-overlay">
+              <span class="gallery-label">Deluxe Room</span>
+            </div>
+          </div>
+          <div class="gallery-item gallery-wide" role="listitem">
+            <img src="images/hotel_pool.png" alt="Stunning rooftop infinity pool at The Bauphiloné with panoramic sunset views over the city" loading="lazy" />
+            <div class="gallery-overlay">
+              <span class="gallery-label">Infinity Pool</span>
+            </div>
+          </div>
+          <div class="gallery-item" role="listitem">
+            <img src="images/room_executive.png" alt="Spacious executive suite with panoramic windows and elegant gold and navy furnishings" loading="lazy" />
+            <div class="gallery-overlay">
+              <span class="gallery-label">Executive Suite</span>
+            </div>
+          </div>
+          <div class="gallery-item" role="listitem">
+            <img src="images/room_presidential.png" alt="Grand presidential suite featuring ocean views, chandelier, and private terrace" loading="lazy" />
+            <div class="gallery-overlay">
+              <span class="gallery-label">Presidential Suite</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-btn-wrap">
+          <button class="btn btn-outline-navy" id="viewGalleryBtn">
+            <i class="fas fa-images" aria-hidden="true"></i>
+            View Full Gallery
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="cta-section" aria-labelledby="ctaHeading">
+      <div class="cta-bg">
+        <img src="images/hotel_hero.png" alt="The Bauphiloné grand exterior for booking call to action" loading="lazy" />
+        <div class="cta-overlay"></div>
+      </div>
+      <div class="cta-content">
+        <div class="section-eyebrow light">Exclusive Offer</div>
+        <h2 id="ctaHeading" class="cta-title">Ready For Your Next<br /><em>Luxury Stay?</em></h2>
+        <p class="cta-subtitle">Book directly and enjoy exclusive member benefits including complimentary upgrades, spa credits, and early check-in.</p>
+        <a href="#booking" class="btn btn-gold btn-lg" id="reserveRoomBtn">
+          <i class="fas fa-concierge-bell" aria-hidden="true"></i>
+          Reserve Your Room
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="contact" class="footer" role="contentinfo">
+    <div class="footer-main">
+      <div class="container">
+        <div class="footer-grid">
+          <!-- Column 1: Brand -->
+          <div class="footer-col footer-brand">
+            <div class="footer-logo">
+              <span class="logo-icon">âœ¦</span>
+              <span class="logo-text">
+                <span class="logo-main">The Bauphiloné</span>
+                <span class="logo-sub">Hotels &amp; Resorts</span>
+              </span>
+            </div>
+            <p class="footer-desc">Where timeless elegance meets modern luxury. Creating extraordinary moments across the world's most iconic destinations since 2001.</p>
+            <div class="footer-awards">
+              <span class="award-badge">â­ Forbes Five Stars</span>
+              <span class="award-badge">ðŸ† World's Best 2025</span>
+            </div>
+          </div>
+
+          <!-- Column 2: Quick Links -->
+          <div class="footer-col">
+            <h3 class="footer-heading">Quick Links</h3>
+            <ul class="footer-links" role="list">
+              <li><a href="index.html" class="footer-link">Home</a></li>
+              <li><a href="about.html" class="footer-link">About</a></li>
+              <li><a href="rooms.html" class="footer-link">Rooms &amp; Suites</a></li>
+              <li><a href="gallery.html" class="footer-link">Gallery</a></li>
+              <li><a href="contact.html" class="footer-link">Contact</a></li>
+              <li><a href="index.html#booking" class="footer-link">Book Now</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Contact -->
+          <div class="footer-col">
+            <h3 class="footer-heading">Contact Us</h3>
+            <address class="footer-contact" style="font-style:normal;">
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                <span>1 The Bauphiloné Boulevard,<br />Mumbai 400001, India</span>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone" aria-hidden="true"></i>
+                <a href="tel:+912212345678" class="footer-link">+91 22 1234 5678</a>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                <a href="mailto:reservations@royalhorizon.com" class="footer-link">reservations@royalhorizon.com</a>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-clock" aria-hidden="true"></i>
+                <span>Reservations: 24/7</span>
+              </div>
+            </address>
+          </div>
+
+          <!-- Column 4: Social -->
+          <div class="footer-col">
+            <h3 class="footer-heading">Follow Us</h3>
+            <p class="footer-social-desc">Stay connected for exclusive offers, behind-the-scenes luxury, and travel inspiration.</p>
+            <div class="social-links" role="list" aria-label="Social media links">
+              <a href="#" class="social-link" id="socialFacebook" aria-label="Follow us on Facebook" role="listitem">
+                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+              </a>
+              <a href="#" class="social-link" id="socialInstagram" aria-label="Follow us on Instagram" role="listitem">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="#" class="social-link" id="socialTwitter" aria-label="Follow us on Twitter" role="listitem">
+                <i class="fab fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="#" class="social-link" id="socialLinkedIn" aria-label="Follow us on LinkedIn" role="listitem">
+                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="newsletter">
+              <h4 class="newsletter-title">Newsletter</h4>
+              <form class="newsletter-form" id="newsletterForm" novalidate>
+                <div class="newsletter-input-wrap">
+                  <input type="email" id="newsletterEmail" placeholder="Your email address" class="newsletter-input" aria-label="Email for newsletter" />
+                  <button type="submit" class="newsletter-btn" id="newsletterBtn" aria-label="Subscribe to newsletter">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <p class="copyright">&copy; 2026 The Bauphiloné. All Rights Reserved.</p>
+          <div class="footer-legal">
+            <a href="#" class="legal-link">Privacy Policy</a>
+            <span aria-hidden="true">Â·</span>
+            <a href="#" class="legal-link">Terms of Service</a>
+            <span aria-hidden="true">Â·</span>
+            <a href="#" class="legal-link">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top of page">
+    <i class="fas fa-chevron-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- Login Modal -->
+  <div class="modal-overlay" id="loginModal" role="dialog" aria-labelledby="loginModalTitle" aria-modal="true" style="display:none;">
+    <div class="modal-box">
+      <button class="modal-close" id="closeLoginModal" aria-label="Close login modal">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
+      <div class="modal-logo">
+        <span class="logo-icon">âœ¦</span>
+        <h2 id="loginModalTitle" class="modal-title">Welcome Back</h2>
+      </div>
+      <form class="modal-form" id="loginForm" novalidate>
+        <div class="form-group">
+          <label for="loginEmail" class="form-label">Email Address</label>
+          <input type="email" id="loginEmail" class="form-input dark" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label for="loginPassword" class="form-label">Password</label>
+          <input type="password" id="loginPassword" class="form-input dark" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" />
+        </div>
+        <button type="submit" class="btn btn-gold btn-full">Sign In</button>
+        <p class="modal-footer-text">Don't have an account? <a href="#">Create one</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+

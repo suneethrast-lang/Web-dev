@@ -1,0 +1,472 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | The Bauphiloné</title>
+  <meta name="description" content="Learn about The Bauphiloné â€“ over 25 years of world-class luxury hospitality, fine dining, and exceptional guest experiences." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Page Hero */
+    .page-hero {
+      position: relative;
+      height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-top: var(--nav-h);
+    }
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+    }
+    .page-hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+    .page-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15,23,42,0.82) 0%, rgba(15,23,42,0.60) 100%);
+    }
+    .page-hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 24px;
+    }
+    .page-hero-content .section-eyebrow { color: var(--gold-light); }
+    .page-hero-title {
+      font-family: var(--ff-heading);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .page-hero-title em { color: var(--gold); font-style: italic; }
+    .page-hero-breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 14px;
+    }
+    .page-hero-breadcrumb a { color: var(--gold); }
+    .page-hero-breadcrumb i { font-size: 0.65rem; }
+
+    /* Stats Row */
+    .stats-section {
+      background: var(--navy);
+      padding: 52px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+    .stat-item { padding: 16px; }
+    .stat-number {
+      font-family: var(--ff-heading);
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* Team Cards */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .team-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      text-align: center;
+    }
+    .team-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    .team-avatar {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      object-position: top;
+    }
+    .team-avatar-placeholder {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-800) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-heading);
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .team-body { padding: 24px; }
+    .team-name {
+      font-family: var(--ff-heading);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .team-role {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .team-bio {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Values */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .value-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 36px 32px;
+      border-left: 4px solid var(--gold);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .value-card:hover { transform: translateX(6px); box-shadow: var(--shadow-md); }
+    .value-icon {
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .value-title {
+      font-family: var(--ff-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .value-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-grid  { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header id="navbar" class="navbar" role="banner">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="The Bauphiloné Home">
+        <span class="logo-icon">âœ¦</span>
+        <span class="logo-text">
+          <span class="logo-main">The Bauphiloné</span>
+          <span class="logo-sub">Hotels &amp; Resorts</span>
+        </span>
+      </a>
+      <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link active">About</a></li>
+          <li><a href="rooms.html" class="nav-link">Rooms &amp; Suites</a></li>
+          <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button id="loginBtn" class="btn btn-ghost">Login</button>
+        <a href="index.html#booking" class="btn btn-gold">Book Now</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero" aria-label="About page hero">
+      <div class="page-hero-bg">
+        <img src="images/hotel_lobby.png" alt="Grand The Bauphiloné hotel lobby interior" />
+        <div class="page-hero-overlay"></div>
+      </div>
+      <div class="page-hero-content">
+        <div class="section-eyebrow">Our Story</div>
+        <h1 class="page-hero-title">About <em>The Bauphiloné</em></h1>
+        <nav class="page-hero-breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
+          <span>About</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-section" aria-label="Hotel statistics">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item reveal">
+            <div class="stat-number">25+</div>
+            <div class="stat-label">Years of Excellence</div>
+          </div>
+          <div class="stat-item reveal reveal-delay-1">
+            <div class="stat-number">18</div>
+            <div class="stat-label">Global Locations</div>
+          </div>
+          <div class="stat-item reveal reveal-delay-2">
+            <div class="stat-number">50K+</div>
+            <div class="stat-label">Happy Guests</div>
+          </div>
+          <div class="stat-item reveal reveal-delay-3">
+            <div class="stat-number">142</div>
+            <div class="stat-label">Awards Won</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WELCOME / STORY -->
+    <section class="welcome-section section-pad" aria-labelledby="aboutStoryHeading">
+      <div class="container">
+        <div class="welcome-grid">
+          <div class="welcome-image-col reveal">
+            <div class="welcome-img-wrapper">
+              <img src="images/hotel_hero.png" alt="The Bauphiloné grand exterior at twilight" class="welcome-img" loading="lazy" />
+              <div class="img-badge">
+                <span class="badge-num">â˜…â˜…â˜…â˜…â˜…</span>
+                <span class="badge-label">Forbes Rated</span>
+              </div>
+            </div>
+          </div>
+          <div class="welcome-content-col reveal reveal-delay-1">
+            <div class="section-eyebrow">Who We Are</div>
+            <h2 id="aboutStoryHeading" class="section-title">A Legacy of<br /><em>Timeless Luxury</em></h2>
+            <div class="gold-divider"></div>
+            <p class="welcome-text">Founded in 2001 in the heart of Mumbai, The Bauphiloné was born from a singular vision â€” to create spaces where luxury is not just experienced, but deeply felt. Over two decades, we have grown into one of the world's most celebrated luxury hospitality brands.</p>
+            <p class="welcome-text">Our philosophy is rooted in three pillars: impeccable service, extraordinary design, and the art of anticipation. We don't just meet expectations â€” we exceed them before our guests even know they had them.</p>
+            <p class="welcome-text">Each The Bauphiloné property is a masterpiece of architecture and interior design, blending local culture with global luxury standards to create truly unique destinations.</p>
+            <a href="rooms.html" class="btn btn-gold">Explore Our Rooms <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUR VALUES -->
+    <section class="section-pad bg-beige" aria-labelledby="valuesHeading">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">What Drives Us</div>
+          <h2 id="valuesHeading" class="section-title">Our Core <em>Values</em></h2>
+          <div class="gold-divider center"></div>
+        </div>
+        <div class="values-grid">
+          <div class="value-card reveal">
+            <div class="value-icon"><i class="fas fa-gem" aria-hidden="true"></i></div>
+            <h3 class="value-title">Uncompromising Excellence</h3>
+            <p class="value-desc">We hold every detail to the highest standard â€” from the thread count of our linens to the training of our staff. Excellence is not a goal; it is our minimum standard.</p>
+          </div>
+          <div class="value-card reveal reveal-delay-1">
+            <div class="value-icon"><i class="fas fa-heart" aria-hidden="true"></i></div>
+            <h3 class="value-title">Genuine Hospitality</h3>
+            <p class="value-desc">Our warmth is authentic. We treat every guest as an honoured personal guest â€” not a booking reference. This culture of genuine care defines everything we do.</p>
+          </div>
+          <div class="value-card reveal reveal-delay-2">
+            <div class="value-icon"><i class="fas fa-leaf" aria-hidden="true"></i></div>
+            <h3 class="value-title">Sustainable Luxury</h3>
+            <p class="value-desc">True luxury respects the world we inhabit. We are committed to carbon-neutral operations by 2030, sourcing locally, and preserving the beauty of every destination we call home.</p>
+          </div>
+          <div class="value-card reveal reveal-delay-3">
+            <div class="value-icon"><i class="fas fa-users" aria-hidden="true"></i></div>
+            <h3 class="value-title">Community &amp; Culture</h3>
+            <p class="value-desc">We celebrate the rich cultures of every city we operate in, partnering with local artisans, chefs, and communities to create authentic, meaningful experiences.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERSHIP TEAM -->
+    <section class="section-pad" aria-labelledby="teamHeading">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">The People Behind The Magic</div>
+          <h2 id="teamHeading" class="section-title">Our Leadership <em>Team</em></h2>
+          <div class="gold-divider center"></div>
+        </div>
+        <div class="team-grid">
+          <div class="team-card reveal">
+            <div class="team-avatar-placeholder">RK</div>
+            <div class="team-body">
+              <h3 class="team-name">Rajiv Khanna</h3>
+              <div class="team-role">Founder &amp; CEO</div>
+              <p class="team-bio">With a background in architecture and a passion for hospitality, Rajiv built The Bauphiloné from a single property into a global icon of luxury.</p>
+            </div>
+          </div>
+          <div class="team-card reveal reveal-delay-1">
+            <div class="team-avatar-placeholder">SI</div>
+            <div class="team-body">
+              <h3 class="team-name">Sophia Iyer</h3>
+              <div class="team-role">Chief Experience Officer</div>
+              <p class="team-bio">Sophia leads the guest experience division, ensuring that every interaction â€” from first booking to final farewell â€” is extraordinary.</p>
+            </div>
+          </div>
+          <div class="team-card reveal reveal-delay-2">
+            <div class="team-avatar-placeholder">MP</div>
+            <div class="team-body">
+              <h3 class="team-name">Marco Pellegrini</h3>
+              <div class="team-role">Executive Chef</div>
+              <p class="team-bio">A Michelin-starred culinary master, Marco curates The Bauphiloné's dining experiences with ingredients sourced from the world's finest producers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE US (reused) -->
+    <section class="why-section section-pad bg-beige" aria-labelledby="whyAboutHeading">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">Our Commitment</div>
+          <h2 id="whyAboutHeading" class="section-title">Why Guests Choose <em>Us</em></h2>
+          <div class="gold-divider center"></div>
+        </div>
+        <div class="why-grid">
+          <div class="why-card reveal">
+            <div class="why-icon-circle"><i class="fas fa-tag" aria-hidden="true"></i></div>
+            <h3 class="why-title">Best Price Guarantee</h3>
+            <p class="why-desc">Book directly and we guarantee the lowest rates. Found it cheaper? We'll match it, no questions asked.</p>
+          </div>
+          <div class="why-card reveal reveal-delay-1">
+            <div class="why-icon-circle"><i class="fas fa-headset" aria-hidden="true"></i></div>
+            <h3 class="why-title">24/7 Customer Support</h3>
+            <p class="why-desc">Our concierge team is available around the clock to assist with every aspect of your stay.</p>
+          </div>
+          <div class="why-card reveal reveal-delay-2">
+            <div class="why-icon-circle"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
+            <h3 class="why-title">Secure Online Booking</h3>
+            <p class="why-desc">All transactions are protected by bank-level 256-bit SSL encryption for your peace of mind.</p>
+          </div>
+          <div class="why-card reveal reveal-delay-3">
+            <div class="why-icon-circle"><i class="fas fa-star" aria-hidden="true"></i></div>
+            <h3 class="why-title">Luxury Guest Experience</h3>
+            <p class="why-desc">Personalized welcome amenities and bespoke experiences â€” we anticipate every need before you ask.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="footer" role="contentinfo">
+    <div class="footer-main">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col footer-brand">
+            <div class="footer-logo">
+              <span class="logo-icon">âœ¦</span>
+              <span class="logo-text">
+                <span class="logo-main">The Bauphiloné</span>
+                <span class="logo-sub">Hotels &amp; Resorts</span>
+              </span>
+            </div>
+            <p class="footer-desc">Where timeless elegance meets modern luxury. Creating extraordinary moments across the world's most iconic destinations since 2001.</p>
+            <div class="footer-awards">
+              <span class="award-badge">â­ Forbes Five Stars</span>
+              <span class="award-badge">ðŸ† World's Best 2025</span>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Quick Links</h3>
+            <ul class="footer-links" role="list">
+              <li><a href="index.html" class="footer-link">Home</a></li>
+              <li><a href="about.html" class="footer-link">About</a></li>
+              <li><a href="rooms.html" class="footer-link">Rooms &amp; Suites</a></li>
+              <li><a href="gallery.html" class="footer-link">Gallery</a></li>
+              <li><a href="contact.html" class="footer-link">Contact</a></li>
+              <li><a href="index.html#booking" class="footer-link">Book Now</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Contact Us</h3>
+            <address class="footer-contact" style="font-style:normal;">
+              <div class="contact-item"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span>1 The Bauphiloné Boulevard,<br />Mumbai 400001, India</span></div>
+              <div class="contact-item"><i class="fas fa-phone" aria-hidden="true"></i><a href="tel:+912212345678" class="footer-link">+91 22 1234 5678</a></div>
+              <div class="contact-item"><i class="fas fa-envelope" aria-hidden="true"></i><a href="mailto:reservations@royalhorizon.com" class="footer-link">reservations@royalhorizon.com</a></div>
+              <div class="contact-item"><i class="fas fa-clock" aria-hidden="true"></i><span>Reservations: 24/7</span></div>
+            </address>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Follow Us</h3>
+            <p class="footer-social-desc">Stay connected for exclusive offers and travel inspiration.</p>
+            <div class="social-links" role="list">
+              <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <p class="copyright">&copy; 2026 The Bauphiloné. All Rights Reserved.</p>
+          <div class="footer-legal">
+            <a href="#" class="legal-link">Privacy Policy</a>
+            <span>Â·</span>
+            <a href="#" class="legal-link">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+
+  <div class="modal-overlay" id="loginModal" role="dialog" aria-labelledby="loginModalTitle" aria-modal="true" style="display:none;">
+    <div class="modal-box">
+      <button class="modal-close" id="closeLoginModal" aria-label="Close login modal"><i class="fas fa-times"></i></button>
+      <div class="modal-logo"><span class="logo-icon">âœ¦</span><h2 id="loginModalTitle" class="modal-title">Welcome Back</h2></div>
+      <form class="modal-form" id="loginForm" novalidate>
+        <div class="form-group"><label for="loginEmail" class="form-label">Email Address</label><input type="email" id="loginEmail" class="form-input dark" placeholder="your@email.com" /></div>
+        <div class="form-group"><label for="loginPassword" class="form-label">Password</label><input type="password" id="loginPassword" class="form-input dark" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" /></div>
+        <button type="submit" class="btn btn-gold btn-full">Sign In</button>
+        <p class="modal-footer-text">Don't have an account? <a href="#">Create one</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+

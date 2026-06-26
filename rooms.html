@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rooms &amp; Suites | The Bauphiloné</title>
+  <meta name="description" content="Explore our luxury accommodations â€” Deluxe Rooms, Executive Suites, and Presidential Suites at The Bauphiloné." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Page Hero */
+    .page-hero {
+      position: relative;
+      height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-top: var(--nav-h);
+    }
+    .page-hero-bg { position: absolute; inset: 0; }
+    .page-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+    .page-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(15,23,42,0.82) 0%, rgba(15,23,42,0.60) 100%);
+    }
+    .page-hero-content { position: relative; z-index: 2; text-align: center; padding: 0 24px; }
+    .page-hero-content .section-eyebrow { color: var(--gold-light); }
+    .page-hero-title {
+      font-family: var(--ff-heading);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800; color: var(--white); line-height: 1.15; margin-bottom: 12px;
+    }
+    .page-hero-title em { color: var(--gold); font-style: italic; }
+    .page-hero-breadcrumb {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-top: 14px;
+    }
+    .page-hero-breadcrumb a { color: var(--gold); }
+    .page-hero-breadcrumb i { font-size: 0.65rem; }
+
+    /* Filter bar */
+    .filter-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--beige-dark);
+      padding: 20px 0;
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 50;
+      box-shadow: var(--shadow-sm);
+    }
+    .filter-bar .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 9px 22px;
+      border-radius: 100px;
+      border: 1.5px solid var(--beige-dark);
+      background: var(--white);
+      font-family: var(--ff-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--gold);
+    }
+
+    /* Full Room Cards (wider layout) */
+    .rooms-grid-full {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 64px;
+    }
+
+    /* Room Detail Modal */
+    .room-detail-modal {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(15,23,42,0.8);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      animation: fadeIn 0.3s ease;
+    }
+    .room-detail-box {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      max-width: 760px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+      animation: scaleIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      position: relative;
+    }
+    .room-detail-img {
+      width: 100%; height: 320px; object-fit: cover;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .room-detail-body { padding: 36px; }
+    .room-detail-name {
+      font-family: var(--ff-heading);
+      font-size: 2rem; font-weight: 700; color: var(--navy); margin-bottom: 8px;
+    }
+    .room-detail-price {
+      font-family: var(--ff-heading);
+      font-size: 1.6rem; color: var(--gold); font-weight: 700; margin-bottom: 16px;
+    }
+    .room-detail-desc { font-size: 0.92rem; color: var(--text-body); line-height: 1.8; margin-bottom: 24px; }
+    .room-detail-features {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px;
+    }
+    .room-detail-feature {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; color: var(--navy); font-weight: 500;
+    }
+    .room-detail-feature i { color: var(--gold); font-size: 0.8rem; }
+    .room-detail-close {
+      position: absolute; top: 16px; right: 16px;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(0,0,0,0.4); border: none;
+      color: white; font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .room-detail-close:hover { background: var(--gold); color: var(--navy); }
+
+    /* Facilities row */
+    .facilities-grid-full {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 1024px) {
+      .rooms-grid-full { grid-template-columns: repeat(2, 1fr); }
+      .facilities-grid-full { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .rooms-grid-full { grid-template-columns: 1fr; }
+      .facilities-grid-full { grid-template-columns: 1fr; }
+      .room-detail-features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header id="navbar" class="navbar" role="banner">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="The Bauphiloné Home">
+        <span class="logo-icon">âœ¦</span>
+        <span class="logo-text">
+          <span class="logo-main">The Bauphiloné</span>
+          <span class="logo-sub">Hotels &amp; Resorts</span>
+        </span>
+      </a>
+      <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="rooms.html" class="nav-link active">Rooms &amp; Suites</a></li>
+          <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button id="loginBtn" class="btn btn-ghost">Login</button>
+        <a href="index.html#booking" class="btn btn-gold">Book Now</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero" aria-label="Rooms page hero">
+      <div class="page-hero-bg">
+        <img src="images/room_executive.png" alt="Luxury executive suite at The Bauphiloné" />
+        <div class="page-hero-overlay"></div>
+      </div>
+      <div class="page-hero-content">
+        <div class="section-eyebrow">Premium Accommodations</div>
+        <h1 class="page-hero-title">Rooms &amp; <em>Suites</em></h1>
+        <nav class="page-hero-breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
+          <span>Rooms &amp; Suites</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar" role="region" aria-label="Room filter">
+      <div class="container">
+        <button class="filter-btn active" data-filter="all" id="filterAll">All Rooms</button>
+        <button class="filter-btn" data-filter="deluxe" id="filterDeluxe">Deluxe</button>
+        <button class="filter-btn" data-filter="suite" id="filterSuite">Suites</button>
+        <button class="filter-btn" data-filter="presidential" id="filterPresidential">Presidential</button>
+        <button class="filter-btn" data-filter="penthouse" id="filterPenthouse">Penthouse</button>
+      </div>
+    </div>
+
+    <!-- ALL ROOMS -->
+    <section class="section-pad" aria-labelledby="allRoomsHeading">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">Find Your Perfect Stay</div>
+          <h2 id="allRoomsHeading" class="section-title">Our Luxury <em>Accommodations</em></h2>
+          <div class="gold-divider center"></div>
+          <p class="section-desc">Every room is a carefully curated sanctuary of comfort, crafted with the finest materials and most thoughtful amenities.</p>
+        </div>
+
+        <div class="rooms-grid-full" id="roomsGrid">
+          <!-- Deluxe Room -->
+          <article class="room-card reveal" data-type="deluxe" aria-labelledby="r1">
+            <div class="room-img-wrapper">
+              <img src="images/room_deluxe.png" alt="Deluxe room with king bed and city views at The Bauphiloné" class="room-img" loading="lazy" />
+              <div class="room-tag">Best Seller</div>
+            </div>
+            <div class="room-body">
+              <h2 id="r1" class="room-name">Deluxe Room</h2>
+              <p class="room-desc">Sophisticated comfort with panoramic city views, premium bedding, and curated in-room amenities designed for the discerning traveler.</p>
+              <div class="room-amenities">
+                <span class="amenity-pill"><i class="fas fa-wifi"></i> WiFi</span>
+                <span class="amenity-pill"><i class="fas fa-snowflake"></i> AC</span>
+                <span class="amenity-pill"><i class="fas fa-tv"></i> Smart TV</span>
+                <span class="amenity-pill"><i class="fas fa-coffee"></i> Breakfast</span>
+              </div>
+              <div class="room-footer">
+                <div class="room-price">
+                  <span class="price-from">from</span>
+                  <span class="price-amount">$299</span>
+                  <span class="price-night">/ night</span>
+                </div>
+                <button class="btn btn-gold-sm" onclick="openRoomDetail('deluxe')" aria-label="View Deluxe Room details">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Executive Suite -->
+          <article class="room-card room-card-featured reveal reveal-delay-1" data-type="suite" aria-labelledby="r2">
+            <div class="room-img-wrapper">
+              <img src="images/room_executive.png" alt="Executive suite with panoramic views at The Bauphiloné" class="room-img" loading="lazy" />
+              <div class="room-tag tag-gold">Most Popular</div>
+            </div>
+            <div class="room-body">
+              <h2 id="r2" class="room-name">Executive Suite</h2>
+              <p class="room-desc">A sanctuary of luxury with a separate living room, private dining, butler service, and breathtaking skyline vistas from every angle.</p>
+              <div class="room-amenities">
+                <span class="amenity-pill"><i class="fas fa-wifi"></i> WiFi</span>
+                <span class="amenity-pill"><i class="fas fa-snowflake"></i> AC</span>
+                <span class="amenity-pill"><i class="fas fa-tv"></i> Smart TV</span>
+                <span class="amenity-pill"><i class="fas fa-coffee"></i> Breakfast</span>
+              </div>
+              <div class="room-footer">
+                <div class="room-price">
+                  <span class="price-from">from</span>
+                  <span class="price-amount">$599</span>
+                  <span class="price-night">/ night</span>
+                </div>
+                <button class="btn btn-gold-sm" onclick="openRoomDetail('executive')" aria-label="View Executive Suite details">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Presidential Suite -->
+          <article class="room-card reveal reveal-delay-2" data-type="presidential" aria-labelledby="r3">
+            <div class="room-img-wrapper">
+              <img src="images/room_presidential.png" alt="Presidential suite with ocean view and chandelier at The Bauphiloné" class="room-img" loading="lazy" />
+              <div class="room-tag tag-premium">Exclusive</div>
+            </div>
+            <div class="room-body">
+              <h2 id="r3" class="room-name">Presidential Suite</h2>
+              <p class="room-desc">The pinnacle of luxury â€” grand piano, private terrace, dedicated butler, and world-class furnishings across 300 sqm of opulent living space.</p>
+              <div class="room-amenities">
+                <span class="amenity-pill"><i class="fas fa-wifi"></i> WiFi</span>
+                <span class="amenity-pill"><i class="fas fa-snowflake"></i> AC</span>
+                <span class="amenity-pill"><i class="fas fa-tv"></i> Smart TV</span>
+                <span class="amenity-pill"><i class="fas fa-coffee"></i> Breakfast</span>
+              </div>
+              <div class="room-footer">
+                <div class="room-price">
+                  <span class="price-from">from</span>
+                  <span class="price-amount">$1,299</span>
+                  <span class="price-night">/ night</span>
+                </div>
+                <button class="btn btn-gold-sm" onclick="openRoomDetail('presidential')" aria-label="View Presidential Suite details">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Junior Suite -->
+          <article class="room-card reveal" data-type="suite" aria-labelledby="r4">
+            <div class="room-img-wrapper">
+              <img src="images/hotel_lobby.png" alt="Elegant junior suite interior at The Bauphiloné" class="room-img" loading="lazy" style="object-position: center 60%;" />
+              <div class="room-tag">New</div>
+            </div>
+            <div class="room-body">
+              <h2 id="r4" class="room-name">Junior Suite</h2>
+              <p class="room-desc">A refined retreat featuring a generous living space, plush king bed, marble bathroom with soaking tub, and curated minibar selections.</p>
+              <div class="room-amenities">
+                <span class="amenity-pill"><i class="fas fa-wifi"></i> WiFi</span>
+                <span class="amenity-pill"><i class="fas fa-snowflake"></i> AC</span>
+                <span class="amenity-pill"><i class="fas fa-tv"></i> Smart TV</span>
+                <span class="amenity-pill"><i class="fas fa-bath"></i> Soaking Tub</span>
+              </div>
+              <div class="room-footer">
+                <div class="room-price">
+                  <span class="price-from">from</span>
+                  <span class="price-amount">$449</span>
+                  <span class="price-night">/ night</span>
+                </div>
+                <button class="btn btn-gold-sm" onclick="openRoomDetail('junior')" aria-label="View Junior Suite details">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Penthouse -->
+          <article class="room-card reveal reveal-delay-1" data-type="penthouse" aria-labelledby="r5">
+            <div class="room-img-wrapper">
+              <img src="images/hotel_pool.png" alt="Penthouse suite with rooftop terrace and pool view at The Bauphiloné" class="room-img" loading="lazy" />
+              <div class="room-tag tag-premium">Ultra Luxury</div>
+            </div>
+            <div class="room-body">
+              <h2 id="r5" class="room-name">Penthouse</h2>
+              <p class="room-desc">A private sky villa spanning the entire top floor â€” private pool, chef's kitchen, home cinema, and 360Â° city panoramas that take your breath away.</p>
+              <div class="room-amenities">
+                <span class="amenity-pill"><i class="fas fa-wifi"></i> WiFi</span>
+                <span class="amenity-pill"><i class="fas fa-swimming-pool"></i> Private Pool</span>
+                <span class="amenity-pill"><i class="fas fa-utensils"></i> Private Chef</span>
+                <span class="amenity-pill"><i class="fas fa-car"></i> Chauffeur</span>
+              </div>
+              <div class="room-footer">
+                <div class="room-price">
+                  <span class="price-from">from</span>
+                  <span class="price-amount">$3,499</span>
+                  <span class="price-night">/ night</span>
+                </div>
+                <button class="btn btn-gold-sm" onclick="openRoomDetail('penthouse')" aria-label="View Penthouse details">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Deluxe Twin -->
+          <article class="room-card reveal reveal-delay-2" data-type="deluxe" aria-labelledby="r6">
+            <div class="room-img-wrapper">
+              <img src="images/room_deluxe.png" alt="Deluxe twin room at The Bauphiloné" class="room-img" loading="lazy" style="filter: hue-rotate(5deg) brightness(1.05);" />
+              <div class="room-tag">Family Friendly</div>
+            </div>
+            <div class="room-body">
+              <h2 id="r6" class="room-name">Deluxe Twin Room</h2>
+              <p class="room-desc">Ideal for families or colleagues â€” twin beds, spacious layout, city views, and all the premium amenities of our signature Deluxe category.</p>
+              <div class="room-amenities">
+                <span class="amenity-pill"><i class="fas fa-wifi"></i> WiFi</span>
+                <span class="amenity-pill"><i class="fas fa-snowflake"></i> AC</span>
+                <span class="amenity-pill"><i class="fas fa-tv"></i> Smart TV</span>
+                <span class="amenity-pill"><i class="fas fa-coffee"></i> Breakfast</span>
+              </div>
+              <div class="room-footer">
+                <div class="room-price">
+                  <span class="price-from">from</span>
+                  <span class="price-amount">$339</span>
+                  <span class="price-night">/ night</span>
+                </div>
+                <button class="btn btn-gold-sm" onclick="openRoomDetail('twin')" aria-label="View Deluxe Twin details">View Details</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FACILITIES -->
+    <section class="facilities-section section-pad bg-beige" aria-labelledby="facilitiesRoomsHeading">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">Included With Every Stay</div>
+          <h2 id="facilitiesRoomsHeading" class="section-title">Hotel <em>Facilities</em></h2>
+          <div class="gold-divider center"></div>
+        </div>
+        <div class="facilities-grid-full">
+          <div class="facility-card reveal"><div class="facility-icon-wrap"><i class="fas fa-swimming-pool"></i></div><h3 class="facility-name">Infinity Pool</h3><p class="facility-desc">Rooftop infinity pool with panoramic views, open daily 6amâ€“11pm.</p></div>
+          <div class="facility-card reveal reveal-delay-1"><div class="facility-icon-wrap"><i class="fas fa-utensils"></i></div><h3 class="facility-name">Fine Dining</h3><p class="facility-desc">Michelin-starred dining experiences for breakfast, lunch, and dinner.</p></div>
+          <div class="facility-card reveal reveal-delay-2"><div class="facility-icon-wrap"><i class="fas fa-spa"></i></div><h3 class="facility-name">Spa &amp; Wellness</h3><p class="facility-desc">Complimentary spa access with select suite bookings. Open 7amâ€“10pm.</p></div>
+          <div class="facility-card reveal"><div class="facility-icon-wrap"><i class="fas fa-dumbbell"></i></div><h3 class="facility-name">Fitness Center</h3><p class="facility-desc">Fully equipped 24/7 gym with personal trainers on request.</p></div>
+          <div class="facility-card reveal reveal-delay-1"><div class="facility-icon-wrap"><i class="fas fa-briefcase"></i></div><h3 class="facility-name">Business Lounge</h3><p class="facility-desc">Private business lounge with high-speed internet and meeting rooms.</p></div>
+          <div class="facility-card reveal reveal-delay-2"><div class="facility-icon-wrap"><i class="fas fa-car"></i></div><h3 class="facility-name">Airport Transfer</h3><p class="facility-desc">Complimentary luxury chauffeur service for all suite bookings.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" aria-labelledby="roomsCtaHeading">
+      <div class="cta-bg">
+        <img src="images/hotel_hero.png" alt="The Bauphiloné grand exterior" loading="lazy" />
+        <div class="cta-overlay"></div>
+      </div>
+      <div class="cta-content">
+        <div class="section-eyebrow light">Best Rate Guaranteed</div>
+        <h2 id="roomsCtaHeading" class="cta-title">Ready to Book Your <em>Dream Room?</em></h2>
+        <p class="cta-subtitle">Book directly with us for the best rate, complimentary upgrades, and exclusive member perks.</p>
+        <a href="index.html#booking" class="btn btn-gold btn-lg"><i class="fas fa-concierge-bell"></i> Reserve Now</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-main">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col footer-brand">
+            <div class="footer-logo"><span class="logo-icon">âœ¦</span><span class="logo-text"><span class="logo-main">The Bauphiloné</span><span class="logo-sub">Hotels &amp; Resorts</span></span></div>
+            <p class="footer-desc">Where timeless elegance meets modern luxury. Creating extraordinary moments across the world's most iconic destinations since 2001.</p>
+            <div class="footer-awards"><span class="award-badge">â­ Forbes Five Stars</span><span class="award-badge">ðŸ† World's Best 2025</span></div>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Quick Links</h3>
+            <ul class="footer-links" role="list">
+              <li><a href="index.html" class="footer-link">Home</a></li>
+              <li><a href="about.html" class="footer-link">About</a></li>
+              <li><a href="rooms.html" class="footer-link">Rooms &amp; Suites</a></li>
+              <li><a href="gallery.html" class="footer-link">Gallery</a></li>
+              <li><a href="contact.html" class="footer-link">Contact</a></li>
+              <li><a href="index.html#booking" class="footer-link">Book Now</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Contact Us</h3>
+            <address class="footer-contact" style="font-style:normal;">
+              <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>1 The Bauphiloné Boulevard,<br />Mumbai 400001, India</span></div>
+              <div class="contact-item"><i class="fas fa-phone"></i><a href="tel:+912212345678" class="footer-link">+91 22 1234 5678</a></div>
+              <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:reservations@royalhorizon.com" class="footer-link">reservations@royalhorizon.com</a></div>
+            </address>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Follow Us</h3>
+            <div class="social-links" role="list">
+              <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <p class="copyright">&copy; 2026 The Bauphiloné. All Rights Reserved.</p>
+          <div class="footer-legal"><a href="#" class="legal-link">Privacy Policy</a><span>Â·</span><a href="#" class="legal-link">Terms of Service</a></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+  <div class="modal-overlay" id="loginModal" role="dialog" aria-modal="true" style="display:none;">
+    <div class="modal-box">
+      <button class="modal-close" id="closeLoginModal" aria-label="Close"><i class="fas fa-times"></i></button>
+      <div class="modal-logo"><span class="logo-icon">âœ¦</span><h2 id="loginModalTitle" class="modal-title">Welcome Back</h2></div>
+      <form class="modal-form" id="loginForm" novalidate>
+        <div class="form-group"><label for="loginEmail" class="form-label">Email</label><input type="email" id="loginEmail" class="form-input dark" placeholder="your@email.com" /></div>
+        <div class="form-group"><label for="loginPassword" class="form-label">Password</label><input type="password" id="loginPassword" class="form-input dark" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" /></div>
+        <button type="submit" class="btn btn-gold btn-full">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Room data
+    const roomData = {
+      deluxe: {
+        img: 'images/room_deluxe.png', alt: 'Deluxe Room', name: 'Deluxe Room', price: '$299 / night',
+        desc: 'Indulge in sophisticated comfort with panoramic city views, premium 400-thread-count Egyptian cotton bedding, walk-in rain shower, Nespresso machine, and complimentary minibar refreshed daily.',
+        features: ['King-size bed', 'City view', 'Free WiFi', 'Air conditioning', 'Smart TV', 'Complimentary breakfast', 'Room service 24/7', 'In-room safe']
+      },
+      executive: {
+        img: 'images/room_executive.png', alt: 'Executive Suite', name: 'Executive Suite', price: '$599 / night',
+        desc: 'A sanctuary of luxury featuring a separate living room, private dining area, dedicated butler service, curated welcome amenity, and breathtaking skyline vistas from floor-to-ceiling windows.',
+        features: ['Separate living room', 'Panoramic views', 'Butler service', 'Private dining', 'Free WiFi', 'Smart TV', 'Spa bath', 'Complimentary transfers']
+      },
+      presidential: {
+        img: 'images/room_presidential.png', alt: 'Presidential Suite', name: 'Presidential Suite', price: '$1,299 / night',
+        desc: 'The pinnacle of luxury â€” 300 sqm of pure opulence featuring a grand piano, private terrace, multiple bedrooms, dedicated butler team, and bespoke experiences curated to your preferences.',
+        features: ['Grand piano', 'Private terrace', 'Dedicated butler', '300 sqm space', 'Multiple bedrooms', 'Private kitchen', 'Spa & gym access', 'Chauffeur included']
+      },
+      junior: {
+        img: 'images/hotel_lobby.png', alt: 'Junior Suite', name: 'Junior Suite', price: '$449 / night',
+        desc: 'A refined retreat with a generous living space, plush king bed, marble en-suite bathroom with soaking tub, curated minibar, and a private balcony overlooking the hotel gardens.',
+        features: ['King-size bed', 'Soaking tub', 'Private balcony', 'Garden view', 'Free WiFi', 'Smart TV', 'Curated minibar', 'Breakfast included']
+      },
+      penthouse: {
+        img: 'images/hotel_pool.png', alt: 'Penthouse', name: 'Penthouse', price: '$3,499 / night',
+        desc: 'A private sky villa spanning the entire top floor â€” private infinity pool, chef\'s kitchen, home cinema, dedicated event space, and 360Â° panoramas of the city skyline.',
+        features: ['Private infinity pool', 'Private chef', 'Home cinema', 'Dedicated chauffeur', '360Â° views', 'Personal butler team', 'Event space', 'Airport transfer']
+      },
+      twin: {
+        img: 'images/room_deluxe.png', alt: 'Deluxe Twin Room', name: 'Deluxe Twin Room', price: '$339 / night',
+        desc: 'Ideal for families or colleagues travelling together â€” twin premium beds, expansive floor space, dual vanities, city views, and all the premium amenities of our signature Deluxe category.',
+        features: ['Twin premium beds', 'City view', 'Dual vanities', 'Free WiFi', 'Smart TV', 'Complimentary breakfast', 'Room service', 'Family amenities']
+      }
+    };
+
+    function openRoomDetail(type) {
+      const room = roomData[type];
+      if (!room) return;
+      document.querySelector('.room-detail-modal')?.remove();
+      const modal = document.createElement('div');
+      modal.className = 'room-detail-modal';
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      modal.setAttribute('aria-label', room.name + ' details');
+      modal.innerHTML = `
+        <div class="room-detail-box">
+          <button class="room-detail-close" aria-label="Close"><i class="fas fa-times"></i></button>
+          <img src="${room.img}" alt="${room.alt}" class="room-detail-img" />
+          <div class="room-detail-body">
+            <h2 class="room-detail-name">${room.name}</h2>
+            <div class="room-detail-price">${room.price}</div>
+            <p class="room-detail-desc">${room.desc}</p>
+            <div class="room-detail-features">
+              ${room.features.map(f => `<div class="room-detail-feature"><i class="fas fa-check-circle"></i> ${f}</div>`).join('')}
+            </div>
+            <a href="index.html#booking" class="btn btn-gold btn-full"><i class="fas fa-calendar-check"></i> Book This Room</a>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      document.body.style.overflow = 'hidden';
+      modal.querySelector('.room-detail-close').addEventListener('click', closeModal);
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', escHandler);
+      function closeModal() { modal.remove(); document.body.style.overflow = ''; document.removeEventListener('keydown', escHandler); }
+      function escHandler(e) { if (e.key === 'Escape') closeModal(); }
+    }
+
+    // Filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const roomCards = document.querySelectorAll('#roomsGrid .room-card');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        roomCards.forEach(card => {
+          card.style.display = (filter === 'all' || card.dataset.type === filter) ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,394 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | The Bauphiloné</title>
+  <meta name="description" content="Browse our stunning photo gallery â€” hotel exterior, grand lobby, luxury suites, infinity pool, fine dining, and spa at The Bauphiloné." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero {
+      position: relative; height: 420px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; margin-top: var(--nav-h);
+    }
+    .page-hero-bg { position: absolute; inset: 0; }
+    .page-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+    .page-hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(15,23,42,0.82) 0%, rgba(15,23,42,0.55) 100%); }
+    .page-hero-content { position: relative; z-index: 2; text-align: center; padding: 0 24px; }
+    .page-hero-content .section-eyebrow { color: var(--gold-light); }
+    .page-hero-title { font-family: var(--ff-heading); font-size: clamp(2.2rem,5vw,3.5rem); font-weight: 800; color: var(--white); line-height: 1.15; margin-bottom: 12px; }
+    .page-hero-title em { color: var(--gold); font-style: italic; }
+    .page-hero-breadcrumb { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-top: 14px; }
+    .page-hero-breadcrumb a { color: var(--gold); }
+    .page-hero-breadcrumb i { font-size: 0.65rem; }
+
+    /* Category Filter */
+    .gallery-filter {
+      background: var(--white);
+      border-bottom: 1px solid var(--beige-dark);
+      padding: 20px 0;
+      position: sticky; top: var(--nav-h); z-index: 50;
+      box-shadow: var(--shadow-sm);
+    }
+    .gallery-filter .container {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .gal-filter-btn {
+      padding: 9px 22px; border-radius: 100px;
+      border: 1.5px solid var(--beige-dark);
+      background: var(--white); font-family: var(--ff-body);
+      font-size: 0.82rem; font-weight: 600; color: var(--text-muted);
+      cursor: pointer; transition: var(--transition);
+    }
+    .gal-filter-btn:hover, .gal-filter-btn.active {
+      background: var(--navy); border-color: var(--navy); color: var(--gold);
+    }
+
+    /* Full gallery grid */
+    .gallery-full-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .gallery-full-item {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 4/3;
+      transition: var(--transition);
+    }
+    .gallery-full-item.tall { aspect-ratio: 3/4; }
+    .gallery-full-item.wide { grid-column: span 2; aspect-ratio: 16/7; }
+    .gallery-full-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .gallery-full-item:hover img { transform: scale(1.08); }
+    .gallery-full-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(15,23,42,0.80) 0%, transparent 55%);
+      opacity: 0; transition: var(--transition);
+      display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: flex-end;
+      padding: 20px;
+    }
+    .gallery-full-item:hover .gallery-full-overlay { opacity: 1; }
+    .gallery-item-label {
+      font-family: var(--ff-heading);
+      font-size: 1.05rem; font-weight: 600; color: var(--white);
+    }
+    .gallery-item-sublabel {
+      font-size: 0.78rem; color: var(--gold);
+      font-weight: 500; letter-spacing: 0.08em; margin-top: 4px;
+    }
+    .gallery-zoom-icon {
+      position: absolute; top: 14px; right: 14px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-size: 0.85rem;
+      opacity: 0; transition: var(--transition);
+    }
+    .gallery-full-item:hover .gallery-zoom-icon { opacity: 1; }
+
+    @media (max-width: 1024px) { .gallery-full-grid { grid-template-columns: repeat(2, 1fr); } .gallery-full-item.wide { grid-column: span 2; } }
+    @media (max-width: 768px) { .gallery-full-grid { grid-template-columns: 1fr; } .gallery-full-item.wide, .gallery-full-item.tall { grid-column: span 1; aspect-ratio: 4/3; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header id="navbar" class="navbar" role="banner">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="The Bauphiloné Home">
+        <span class="logo-icon">âœ¦</span>
+        <span class="logo-text">
+          <span class="logo-main">The Bauphiloné</span>
+          <span class="logo-sub">Hotels &amp; Resorts</span>
+        </span>
+      </a>
+      <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="rooms.html" class="nav-link">Rooms &amp; Suites</a></li>
+          <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button id="loginBtn" class="btn btn-ghost">Login</button>
+        <a href="index.html#booking" class="btn btn-gold">Book Now</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero" aria-label="Gallery page hero">
+      <div class="page-hero-bg">
+        <img src="images/hotel_hero.png" alt="Luxury The Bauphiloné exterior" />
+        <div class="page-hero-overlay"></div>
+      </div>
+      <div class="page-hero-content">
+        <div class="section-eyebrow">Visual Tour</div>
+        <h1 class="page-hero-title">Our <em>Gallery</em></h1>
+        <nav class="page-hero-breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
+          <span>Gallery</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- FILTER -->
+    <div class="gallery-filter" role="region" aria-label="Gallery category filter">
+      <div class="container">
+        <button class="gal-filter-btn active" data-gfilter="all">All</button>
+        <button class="gal-filter-btn" data-gfilter="exterior">Exterior</button>
+        <button class="gal-filter-btn" data-gfilter="rooms">Rooms</button>
+        <button class="gal-filter-btn" data-gfilter="dining">Dining &amp; Pool</button>
+        <button class="gal-filter-btn" data-gfilter="lobby">Lobby &amp; Spa</button>
+      </div>
+    </div>
+
+    <!-- GALLERY GRID -->
+    <section class="section-pad" aria-labelledby="galleryMainHeading">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">A Visual Journey</div>
+          <h2 id="galleryMainHeading" class="section-title">Experience The Bauphiloné <em>Through Our Lens</em></h2>
+          <div class="gold-divider center"></div>
+          <p class="section-desc">Every corner of The Bauphiloné is a masterpiece. Explore our spaces through these curated photographs.</p>
+        </div>
+
+        <div class="gallery-full-grid" id="galleryGrid" role="list">
+          <div class="gallery-full-item wide reveal" data-gcategory="exterior" role="listitem" tabindex="0" aria-label="Open Hotel Exterior image">
+            <img src="images/hotel_hero.png" alt="Grand The Bauphiloné exterior lit in gold at twilight â€” majestic colonial architecture" loading="lazy" />
+            <div class="gallery-full-overlay">
+              <span class="gallery-item-label">Hotel Exterior</span>
+              <span class="gallery-item-sublabel">Architecture Â· Twilight</span>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          </div>
+
+          <div class="gallery-full-item tall reveal reveal-delay-1" data-gcategory="lobby" role="listitem" tabindex="0" aria-label="Open Grand Lobby image">
+            <img src="images/hotel_lobby.png" alt="Opulent The Bauphiloné grand lobby with crystal chandeliers, marble floors and gold accents" loading="lazy" />
+            <div class="gallery-full-overlay">
+              <span class="gallery-item-label">Grand Lobby</span>
+              <span class="gallery-item-sublabel">Interior Â· Chandelier</span>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          </div>
+
+          <div class="gallery-full-item reveal reveal-delay-2" data-gcategory="rooms" role="listitem" tabindex="0" aria-label="Open Deluxe Room image">
+            <img src="images/room_deluxe.png" alt="Deluxe hotel room with king bed, city view, and gold navy decor at The Bauphiloné" loading="lazy" />
+            <div class="gallery-full-overlay">
+              <span class="gallery-item-label">Deluxe Room</span>
+              <span class="gallery-item-sublabel">Rooms Â· City View</span>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          </div>
+
+          <div class="gallery-full-item reveal" data-gcategory="rooms" role="listitem" tabindex="0" aria-label="Open Executive Suite image">
+            <img src="images/room_executive.png" alt="Spacious executive suite with panoramic windows and elegant navy gold furnishings" loading="lazy" />
+            <div class="gallery-full-overlay">
+              <span class="gallery-item-label">Executive Suite</span>
+              <span class="gallery-item-sublabel">Suites Â· Panoramic View</span>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          </div>
+
+          <div class="gallery-full-item reveal reveal-delay-1" data-gcategory="dining" role="listitem" tabindex="0" aria-label="Open Infinity Pool image">
+            <img src="images/hotel_pool.png" alt="Stunning rooftop infinity pool at The Bauphiloné with panoramic city views at sunset" loading="lazy" />
+            <div class="gallery-full-overlay">
+              <span class="gallery-item-label">Infinity Pool</span>
+              <span class="gallery-item-sublabel">Amenities Â· Rooftop</span>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          </div>
+
+          <div class="gallery-full-item reveal reveal-delay-2" data-gcategory="rooms" role="listitem" tabindex="0" aria-label="Open Presidential Suite image">
+            <img src="images/room_presidential.png" alt="Grand presidential suite with ocean views, chandelier, marble floors and private terrace" loading="lazy" />
+            <div class="gallery-full-overlay">
+              <span class="gallery-item-label">Presidential Suite</span>
+              <span class="gallery-item-sublabel">Suites Â· Ocean View</span>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          </div>
+
+          <div class="gallery-full-item wide reveal" data-gcategory="exterior" role="listitem" tabindex="0" aria-label="Open Hotel at Night image">
+            <img src="images/hotel_hero.png" alt="The Bauphiloné majestic exterior at night with golden architectural lighting" loading="lazy" style="object-position: center 70%;" />
+            <div class="gallery-full-overlay">
+              <span class="gallery-item-label">Hotel at Night</span>
+              <span class="gallery-item-sublabel">Exterior Â· Night Photography</span>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          </div>
+
+          <div class="gallery-full-item reveal reveal-delay-1" data-gcategory="lobby" role="listitem" tabindex="0" aria-label="Open Spa Lounge image">
+            <img src="images/hotel_lobby.png" alt="Serene hotel spa and wellness lounge at The Bauphiloné with marble finishes and soft lighting" loading="lazy" style="object-position: center 80%;" />
+            <div class="gallery-full-overlay">
+              <span class="gallery-item-label">Spa Lounge</span>
+              <span class="gallery-item-sublabel">Wellness Â· Serenity</span>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          </div>
+
+          <div class="gallery-full-item reveal reveal-delay-2" data-gcategory="dining" role="listitem" tabindex="0" aria-label="Open Pool at Sunset image">
+            <img src="images/hotel_pool.png" alt="The Bauphiloné infinity pool at golden hour with sun setting over the horizon" loading="lazy" style="object-position: center 30%;" />
+            <div class="gallery-full-overlay">
+              <span class="gallery-item-label">Pool at Sunset</span>
+              <span class="gallery-item-sublabel">Amenities Â· Golden Hour</span>
+            </div>
+            <div class="gallery-zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" aria-labelledby="galleryCtaHeading">
+      <div class="cta-bg">
+        <img src="images/hotel_hero.png" alt="The Bauphiloné" loading="lazy" />
+        <div class="cta-overlay"></div>
+      </div>
+      <div class="cta-content">
+        <div class="section-eyebrow light">Your Stay Awaits</div>
+        <h2 id="galleryCtaHeading" class="cta-title">Ready For Your Next <em>Luxury Stay?</em></h2>
+        <p class="cta-subtitle">Book directly and enjoy exclusive member benefits including complimentary upgrades and spa credits.</p>
+        <a href="index.html#booking" class="btn btn-gold btn-lg"><i class="fas fa-concierge-bell"></i> Reserve Your Room</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-main">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col footer-brand">
+            <div class="footer-logo"><span class="logo-icon">âœ¦</span><span class="logo-text"><span class="logo-main">The Bauphiloné</span><span class="logo-sub">Hotels &amp; Resorts</span></span></div>
+            <p class="footer-desc">Where timeless elegance meets modern luxury. Creating extraordinary moments since 2001.</p>
+            <div class="footer-awards"><span class="award-badge">â­ Forbes Five Stars</span><span class="award-badge">ðŸ† World's Best 2025</span></div>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Quick Links</h3>
+            <ul class="footer-links" role="list">
+              <li><a href="index.html" class="footer-link">Home</a></li>
+              <li><a href="about.html" class="footer-link">About</a></li>
+              <li><a href="rooms.html" class="footer-link">Rooms &amp; Suites</a></li>
+              <li><a href="gallery.html" class="footer-link">Gallery</a></li>
+              <li><a href="contact.html" class="footer-link">Contact</a></li>
+              <li><a href="index.html#booking" class="footer-link">Book Now</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Contact Us</h3>
+            <address class="footer-contact" style="font-style:normal;">
+              <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>1 The Bauphiloné Boulevard,<br />Mumbai 400001, India</span></div>
+              <div class="contact-item"><i class="fas fa-phone"></i><a href="tel:+912212345678" class="footer-link">+91 22 1234 5678</a></div>
+              <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:reservations@royalhorizon.com" class="footer-link">reservations@royalhorizon.com</a></div>
+            </address>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Follow Us</h3>
+            <div class="social-links" role="list">
+              <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <p class="copyright">&copy; 2026 The Bauphiloné. All Rights Reserved.</p>
+          <div class="footer-legal"><a href="#" class="legal-link">Privacy Policy</a><span>Â·</span><a href="#" class="legal-link">Terms of Service</a></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+  <div class="modal-overlay" id="loginModal" role="dialog" aria-modal="true" style="display:none;">
+    <div class="modal-box">
+      <button class="modal-close" id="closeLoginModal" aria-label="Close"><i class="fas fa-times"></i></button>
+      <div class="modal-logo"><span class="logo-icon">âœ¦</span><h2 id="loginModalTitle" class="modal-title">Welcome Back</h2></div>
+      <form class="modal-form" id="loginForm" novalidate>
+        <div class="form-group"><label for="loginEmail" class="form-label">Email</label><input type="email" id="loginEmail" class="form-input dark" placeholder="your@email.com" /></div>
+        <div class="form-group"><label for="loginPassword" class="form-label">Password</label><input type="password" id="loginPassword" class="form-input dark" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" /></div>
+        <button type="submit" class="btn btn-gold btn-full">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Gallery filter
+    const gFilterBtns = document.querySelectorAll('.gal-filter-btn');
+    const gItems = document.querySelectorAll('#galleryGrid .gallery-full-item');
+    gFilterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        gFilterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.gfilter;
+        gItems.forEach(item => {
+          const show = filter === 'all' || item.dataset.gcategory === filter;
+          item.style.display = show ? '' : 'none';
+          // Adjust wide class for single-item rows
+          if (show && filter !== 'all') item.classList.remove('wide');
+          else if (filter === 'all') {
+            // restore original wide items
+            if ([0, 6].includes(Array.from(gItems).indexOf(item))) item.classList.add('wide');
+          }
+        });
+      });
+    });
+
+    // Lightbox on click
+    document.querySelectorAll('.gallery-full-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        const label = item.querySelector('.gallery-item-label')?.textContent || '';
+        if (img) openLightboxGallery(img.src, img.alt, label);
+      });
+      item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') item.click(); });
+    });
+
+    function openLightboxGallery(src, alt, label) {
+      document.querySelector('.gallery-lightbox')?.remove();
+      const overlay = document.createElement('div');
+      overlay.className = 'gallery-lightbox';
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.93);display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeIn 0.3s ease;';
+      overlay.innerHTML = `
+        <div style="position:relative;max-width:1000px;width:100%;animation:scaleIn 0.4s cubic-bezier(0.34,1.56,0.64,1);">
+          <button aria-label="Close" style="position:absolute;top:-48px;right:0;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.3);color:white;font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;font-family:inherit;" onmouseover="this.style.background='#D4AF37';this.style.color='#0F172A';" onmouseout="this.style.background='rgba(255,255,255,0.1)';this.style.color='white';">âœ•</button>
+          <img src="${src}" alt="${alt}" style="width:100%;border-radius:16px;box-shadow:0 32px 80px rgba(0,0,0,0.6);max-height:80vh;object-fit:contain;" />
+          <p style="text-align:center;color:rgba(255,255,255,0.7);margin-top:16px;font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;">${label}</p>
+        </div>`;
+      document.body.appendChild(overlay);
+      document.body.style.overflow = 'hidden';
+      overlay.querySelector('button').addEventListener('click', close);
+      overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+      function close() { overlay.remove(); document.body.style.overflow = ''; }
+      document.addEventListener('keydown', function esc(e) { if (e.key === 'Escape') { close(); document.removeEventListener('keydown', esc); } });
+    }
+  </script>
+</body>
+</html>
+
