@@ -1621,6 +1621,13 @@ input, select, textarea { font-family: inherit; outline: none; border: none; }
   font-weight: 500;
   color: var(--gold-dark);
 }
+.weather-info {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+.weather-info.fade-out {
+  opacity: 0;
+}
 
 @media (max-width: 768px) {
   .weather-card { max-width: 100%; }
