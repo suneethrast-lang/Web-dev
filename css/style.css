@@ -1567,6 +1567,66 @@ input, select, textarea { font-family: inherit; outline: none; border: none; }
 }
 
 /* ============================================
+   WEATHER SECTION
+   ============================================ */
+.weather-section {
+  display: flex;
+  justify-content: center;
+}
+.weather-card {
+  max-width: 350px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  text-align: center;
+  transition: var(--transition);
+  border-top: 3px solid var(--gold);
+}
+.weather-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+.weather-title {
+  font-family: var(--ff-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.weather-location {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.weather-location i { color: var(--gold); margin-right: 6px; }
+.weather-current {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.weather-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+.weather-temp {
+  font-family: var(--ff-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.weather-condition {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--gold-dark);
+}
+
+@media (max-width: 768px) {
+  .weather-card { max-width: 100%; }
+}
+
+/* ============================================
    RESPONSIVE — SMALL MOBILE (max 480px)
    ============================================ */
 @media (max-width: 480px) {

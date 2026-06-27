@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -561,6 +561,25 @@
       </div>
     </section>
 
+    <!-- ========== WEATHER SECTION ========== -->
+    <section class="weather-section section-pad bg-beige" aria-labelledby="weatherHeading">
+      <div class="container">
+        <div class="weather-card glassmorphism">
+          <div class="weather-info">
+            <h2 id="weatherHeading" class="weather-title">Current Weather</h2>
+            <div class="weather-location">
+              <i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu
+            </div>
+            <div class="weather-current">
+              <span id="weatherIcon" class="weather-icon">--</span>
+              <span id="temperature" class="weather-temp">--°C</span>
+            </div>
+            <div id="condition" class="weather-condition">Loading weather...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ========== FOOTER ========== -->
@@ -701,6 +720,7 @@
   </div>
 
   <script src="js/main.js"></script>
+  <script src="js/weather.js"></script>
 </body>
 </html>
 
